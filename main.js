@@ -41,6 +41,10 @@ function createTodoList(){
   return list;
 } // end of createTodoList
 
+function createTodoItem(name){
+
+} // end of createTodoItem
+
 document.addEventListener('DOMContentLoaded', function(){
   let container = document.getElementById('todo-app');
 
