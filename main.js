@@ -67,14 +67,8 @@
     }
   } // end of createTodoItem
 
-  function createTodoApp(container, title = 'Task list'){
-
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    let container = document.getElementById('todo-app');
-
-    let todoAppTitle = createAppTitle('Task List');
+  function createTodoApp(container, title ){
+    let todoAppTitle = createAppTitle(title);
     let todoItemForm = createTodoItemForm();
     let todoList = createTodoList();
 
@@ -102,6 +96,12 @@
       // Clear the input field
       todoItemForm.input.value = '';
     } ); /////////////////////////////////////////////////////////////////////////////// End of FORM SUBMIT
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    createTodoApp(document.getElementById('my-todo'), 'My Tastk list');
+    createTodoApp(document.getElementById('learn-todo'), 'My study Task list');
+    createTodoApp(document.getElementById('business-todo'), 'My business Tastk list');
 
   });// end of DOMContentLoaded
 })();
