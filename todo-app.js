@@ -98,5 +98,5 @@
     } ); /////////////////////////////////////////////////////////////////////////////// End of FORM SUBMIT
   }
 
-  // end of DOMContentLoaded
+  window.createTodoApp = createTodoApp;
 })();
