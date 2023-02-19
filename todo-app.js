@@ -1,4 +1,8 @@
 (function () {
+  let deals = [];
+  function updateLocal(list_name){
+    localStorage.setItem(list_name, JSON.stringify(deals));
+  }
   // Создание заголовка приложения
   function createAppTitle(title) {
     let AppTitle = document.createElement('h2');
