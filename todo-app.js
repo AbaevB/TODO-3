@@ -45,12 +45,16 @@
     return list;
   } // end of createTodoList
 
-  function createTodoItem(name) {
+  function createTodoItem(task_obj,listname) {
     let item = document.createElement('li');
     let buttonGroup = document.createElement('div');
     let doneButton = document.createElement('button');
     let deleteButton = document.createElement('button');
-    item.textContent = name;
+    item.textContent =task_obj.name;
+
+    if(task_obj.done)
+       item.classList.add('list-group-item-success');
+    item.id = task_obj.id;
 
     item.classList.add('list-group-item', 'list-group-item-action', 'justify-content-between', 'd-flex', 'align-items-center');
     buttonGroup.classList.add('btn-group');
@@ -71,7 +75,7 @@
     }
   } // end of createTodoItem
 
-  function createTodoApp(container, title ){
+  function createTodoApp(container, title, listname ){
     let todoAppTitle = createAppTitle(title);
     let todoItemForm = createTodoItemForm();
     let todoList = createTodoList();
@@ -79,24 +83,75 @@
     container.append(todoAppTitle);
     container.append(todoItemForm.form);
     container.append(todoList);
+
+    deals = JSON.parse(localStorage.getItem(listname));
+    console.log(deals);
+
+    if(deals){
+      for(let deal of deals){
+        let item = createTodoItem({id: deal.id, name: deal.name, done: deal.done}, listname);
+        item.doneButton.addEventListener('click', function(){
+          item.item.classList.toggle('list-group-item-success');
+          deals.map(el => el.id === Number(item.item.id) ? el.done = !el.done : null);
+          updateLocal(listname);
+        } );
+
+        item.deleteButton.addEventListener('click', function(){
+          if (confirm('You are sure?')){
+            deals = deals.filter(el => el.id !== Number(item.item.id));
+            item.item.remove();
+            updateLocal(listname);
+          }
+        });
+
+        todoList.append(item.item);
+      }
+
+
+    }else{
+      deals = [];
+    }
+
+
+
     ///////////////////////////////////////////////////////////////////////////////////////// FORM SUBMIT
     todoItemForm.form.addEventListener('submit', function(e){
       e.preventDefault();
       if(!todoItemForm.input.value) {
         return;
       }
-       let todoItem = createTodoItem(todoItemForm.input.value); // ???
+
+      let i = 0;
+      if(deals){
+        for(let deal of deals){
+          if (deal.id > i){
+            i = deal.id;
+          }
+        }
+      }
+
+      deals.push({id: i + 1, name: todoItemForm.input.value, done: false});
+
+
+       let item = createTodoItem({id: i, name: todoItemForm.input.value, done: false}, listname); // ???
       // Adding handlers to the "Done" and "Delete" buttons
-        todoItem.doneButton.addEventListener('click', function(){
-          todoItem.item.classList.toggle('list-group-item-success');
+        item.doneButton.addEventListener('click', function(){
+          item.item.classList.toggle('list-group-item-success');
+          deals.map(el => el.done = el.done);
+          updateLocal(listname);
+          console.log(listname);
         });
-        todoItem.deleteButton.addEventListener('click', function(){
+        item.deleteButton.addEventListener('click', function(){
           if(confirm('You are sure?')){
-            todoItem.item.remove();
+            deals = deals.filter(el => el.id !== Number(item.item.id))
+            item.item.remove();
+            updateLocal(listname);
+            console.log(listname);
           }
         });
       //  Creating and adding to the list a new task with a name taken from the input field
-      todoList.append(todoItem.item);
+      todoList.append(item.item);
+      updateLocal(listname);
       // Clear the input field
       todoItemForm.input.value = '';
     } ); /////////////////////////////////////////////////////////////////////////////// End of FORM SUBMIT
