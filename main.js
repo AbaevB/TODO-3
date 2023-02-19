@@ -77,7 +77,7 @@
     container.append(todoAppTitle);
     container.append(todoItemForm.form);
     container.append(todoList);
-    ////////////////////////////////////////////////////////// FORM SUBMIT
+    ///////////////////////////////////////////////////////////////////////////////////////// FORM SUBMIT
     todoItemForm.form.addEventListener('submit', function(e){
       e.preventDefault();
       if(!todoItemForm.input.value) {
@@ -97,7 +97,7 @@
       todoList.append(todoItem.item);
       // Clear the input field
       todoItemForm.input.value = '';
-    } ); ////////////////////////////////////////////////// End of FORM SUBMIT
+    } ); /////////////////////////////////////////////////////////////////////////////// End of FORM SUBMIT
 
   });// end of DOMContentLoaded
 })();
