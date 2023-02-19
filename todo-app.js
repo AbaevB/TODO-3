@@ -98,10 +98,5 @@
     } ); /////////////////////////////////////////////////////////////////////////////// End of FORM SUBMIT
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    createTodoApp(document.getElementById('my-todo'), 'My Tastk list');
-    createTodoApp(document.getElementById('learn-todo'), 'My study Task list');
-    createTodoApp(document.getElementById('business-todo'), 'My business Tastk list');
-
-  });// end of DOMContentLoaded
+  // end of DOMContentLoaded
 })();
