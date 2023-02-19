@@ -67,6 +67,10 @@
     }
   } // end of createTodoItem
 
+  function createTodoApp(container, title = 'Task list'){
+
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     let container = document.getElementById('todo-app');
 
