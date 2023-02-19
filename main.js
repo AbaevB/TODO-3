@@ -17,7 +17,7 @@ function createTodoItemForm(){
   let button = document.createElement('button');
 
   form.classList.add('input-group', 'mb-3');
-  input.classList.add('form-control', 'form-control-lg');
+  input.classList.add('form-control','form-control-action' ,'form-control-lg');
   input.placeholder = 'Add new task name';
   buttonWrapper.classList.add('input-group-append');
   button.classList.add('btn', 'btn-outline-primary',  'btn-lg');
@@ -42,7 +42,29 @@ function createTodoList(){
 } // end of createTodoList
 
 function createTodoItem(name){
+  let item = document.createElement('li');
+  let buttonGroup = document.createElement('div');
+  let doneButton = document.createElement('button');
+  let deleteButton = document.createElement('button');
+  item.textContent = name;
 
+  item.classList.add('list-group-item', 'list-group-item-action','justify-content-between', 'd-flex', 'align-items-center');
+  buttonGroup.classList.add('btn-group' );
+  doneButton.classList.add('btn',  'btn-outline-success');
+  doneButton.textContent = 'Done';
+  deleteButton.classList.add('btn',  'btn-outline-danger');
+  deleteButton.textContent = 'Delete';
+
+
+  buttonGroup.append(doneButton);
+  buttonGroup.append(deleteButton);
+  item.append(buttonGroup);
+
+  return {
+    item,
+    doneButton,
+    deleteButton,
+  }
 } // end of createTodoItem
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -55,8 +77,13 @@ document.addEventListener('DOMContentLoaded', function(){
   container.append(todoAppTitle);
   container.append(todoItemForm.form);
   container.append(todoList);
-
-
+/// Demo
+let todoItems = [createTodoItem('Create TODO-3'), createTodoItem('Publish TODO-3'), createTodoItem('Fix bug in the homework'), createTodoItem('Add homework'), createTodoItem('Start "Module - 9"')];
+todoList.append(todoItems[0].item);
+todoList.append(todoItems[1].item);
+todoList.append(todoItems[2].item);
+todoList.append(todoItems[3].item);
+todoList.append(todoItems[4].item);
 
 });// end of DOMContentLoaded
 } )();
