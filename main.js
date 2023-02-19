@@ -1,10 +1,10 @@
 (function(){
 // Создание заголовка приложения
-function createAppTitle(){
+function createAppTitle(title){
   let AppTitle = document.createElement('h2');
 
   AppTitle.innerHTML = title;
-  AppTitle.classList.add('display-2');
+  AppTitle.classList.add('display-4');
   return AppTitle;
 }//end of createAppTitle
 
@@ -17,15 +17,15 @@ function createTodoItemForm(){
   let button = document.createElement('button');
 
   form.classList.add('input-group', 'mb-3');
-  input.classList.add('form-control');
+  input.classList.add('form-control', 'form-control-lg');
   input.placeholder = 'Add new task name';
   buttonWrapper.classList.add('input-group-append');
-  button.classList.add('btn btn-outline-primary');
+  button.classList.add('btn', 'btn-outline-primary',  'btn-lg');
   button.setAttribute('type', 'submit');
   button.textContent = 'Add task';
 
   buttonWrapper.append(button);
-  form.append.append(input);
+  form.append(input);
   form.append(buttonWrapper);
 
   return {
@@ -40,4 +40,19 @@ function createTodoList(){
   list.classList.add('list-group');
   return list;
 } // end of createTodoList
+
+document.addEventListener('DOMContentLoaded', function(){
+  let container = document.getElementById('todo-app');
+
+  let todoAppTitle = createAppTitle('Task List');
+  let todoItemForm = createTodoItemForm();
+  let todoList = createTodoList();
+
+  container.append(todoAppTitle);
+  container.append(todoItemForm.form);
+  container.append(todoList);
+
+
+
+});// end of DOMContentLoaded
 } )();
