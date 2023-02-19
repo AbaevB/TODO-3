@@ -3,7 +3,7 @@
   function updateLocal(list_name){
     localStorage.setItem(list_name, JSON.stringify(deals));
   }
-  // Создание заголовка приложения
+  ///////////////////////////////////////////////createAppTitle
   function createAppTitle(title) {
     let AppTitle = document.createElement('h2');
 
@@ -13,7 +13,7 @@
   }//end of createAppTitle
 
 
-  // Создание формы
+  //////////////////////////////////////////createTodoItemForm
   function createTodoItemForm() {
     let form = document.createElement('form');
     let input = document.createElement('input');
@@ -73,7 +73,7 @@
       doneButton,
       deleteButton,
     }
-  } // end of createTodoItem
+  } //////////////////////////////////////////////////////////////////////// end of createTodoItem
 
   function createTodoApp(container, title, listname ){
     let todoAppTitle = createAppTitle(title);
@@ -86,16 +86,18 @@
 
     deals = JSON.parse(localStorage.getItem(listname));
     console.log(deals);
-
+//////////////////////////////////////////////////////////////////////////// Checking local storage
     if(deals){
+
       for(let deal of deals){
         let item = createTodoItem({id: deal.id, name: deal.name, done: deal.done}, listname);
+        ///////////////////////////// Done button handler
         item.doneButton.addEventListener('click', function(){
           item.item.classList.toggle('list-group-item-success');
           deals.map(el => el.id === Number(item.item.id) ? el.done = !el.done : null);
           updateLocal(listname);
         } );
-
+        ///////////////////////////// Delete button handler
         item.deleteButton.addEventListener('click', function(){
           if (confirm('You are sure?')){
             deals = deals.filter(el => el.id !== Number(item.item.id));
@@ -111,7 +113,7 @@
     }else{
       deals = [];
     }
-
+//////////////////////////////////////////////////// end of Checking local storage
 
 
     ///////////////////////////////////////////////////////////////////////////////////////// FORM SUBMIT
@@ -120,7 +122,7 @@
       if(!todoItemForm.input.value) {
         return;
       }
-
+      ///// Create ID
       let i = 0;
       if(deals){
         for(let deal of deals){
@@ -129,18 +131,20 @@
           }
         }
       }
-
+      ////// Transfer to local storage
       deals.push({id: i + 1, name: todoItemForm.input.value, done: false});
 
 
        let item = createTodoItem({id: i, name: todoItemForm.input.value, done: false}, listname); // ???
-      // Adding handlers to the "Done" and "Delete" buttons
+      //////////////////////////////////////////////// Adding handlers to the "Done" and "Delete" buttons
+      /////////////////////////////////////////////////////// Done button handler
         item.doneButton.addEventListener('click', function(){
           item.item.classList.toggle('list-group-item-success');
           deals.map(el => el.done = el.done);
           updateLocal(listname);
           console.log(listname);
         });
+        /////////////////////////////////////////////////////// Delete button handler
         item.deleteButton.addEventListener('click', function(){
           if(confirm('You are sure?')){
             deals = deals.filter(el => el.id !== Number(item.item.id))
@@ -154,7 +158,7 @@
       updateLocal(listname);
       // Clear the input field
       todoItemForm.input.value = '';
-    } ); /////////////////////////////////////////////////////////////////////////////// End of FORM SUBMIT
+    } ); ////////////////////////////////////////// End of FORM SUBMIT
   }
 
   window.createTodoApp = createTodoApp;
